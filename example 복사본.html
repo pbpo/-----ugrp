@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>차량 내부 네트워크를 위한 최신 딥러닝 기반 침입 탐지 방법 분석</title>
+    <style>
+        body {
+            font-family: 'Nanum Gothic', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f2f5;
+            margin: 0;
+        }
+        .impress-not-supported .step {
+            position: relative;
+            display: block;
+            margin: 20px auto;
+        }
+        #impress {
+            position: relative;
+        }
+        .step {
+            width: 900px; /* 기본 슬라이드 너비 */
+            min-height: 600px; /* 내용 슬라이드 최소 높이 */
+            padding: 30px;
+            box-sizing: border-box;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+        }
+        .step.active {
+            background-color: rgb(255, 255, 255);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        .step h1 {
+            font-size: 2.2em;
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+        }
+        .step h2 {
+            font-size: 1.6em;
+            color: #3498db;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .step p, .step ul {
+            font-size: 1.0em;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        .step ul {
+            list-style-type: disc;
+            padding-left: 25px;
+        }
+        .step li {
+            margin-bottom: 6px;
+        }
+        .step strong {
+            color: #e74c3c;
+        }
+        .step .caption {
+            font-size: 0.85em;
+            color: #7f8c8d;
+            text-align: center;
+            margin-top: 5px;
+        }
+        .highlight {
+            color: #3498db;
+            font-weight: bold;
+        }
+        .note {
+            font-style: italic;
+            color: #555;
+            font-size: 0.9em;
+            margin-top: auto;
+            padding-top: 10px;
+        }
+        /* Figure 전용 슬라이드 스타일 */
+        .figure-slide {
+            width: 950px; /* 이미지 크기에 맞춰 너비 조정 가능 */
+            min-height: 700px; /* 이미지 크기에 맞춰 높이 조정 가능 */
+            padding: 10px; /* 이미지 위주이므로 패딩 최소화 */
+            justify-content: center; /* 내부 요소 중앙 정렬 */
+            align-items: center; /* 내부 요소 중앙 정렬 */
+            background-color: #fff; /* Figure 슬라이드 배경은 흰색으로 */
+        }
+        .figure-slide img {
+            max-width: 100%;
+            max-height: 620px; /* 슬라이드 높이와 캡션 공간 고려한 이미지 최대 높이 */
+            object-fit: contain; /* 이미지 비율 유지 */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .figure-slide .caption {
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+
+        #overview {
+            background-color: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+        .impress-on-overview .step {
+            opacity: 0.5;
+            cursor: pointer;
+        }
+        .impress-on-overview .step.active {
+             opacity: 1;
+        }
+
+    </style>
+</head>
+<body class="impress-not-supported">
+
+<div id="impress" data-transition-duration="1000">
+
+    <div id="slide1" class="step" data-x="-2000" data-y="-1500">
+        <h1>표지: 딥러닝 기반 차량 IDS 분석</h1>
+        <p><strong>논문 제목:</strong> Analysis of Recent Deep-Learning-Based Intrusion Detection Methods for In-Vehicle Network</p>
+        <p><strong>저자:</strong> Kai Wang, Aiheng Zhang, Haoran Sun, Bailing Wang</p>
+        <p><strong>발표 목적:</strong> 차량 내부 네트워크 보안을 위한 최신 딥러닝 기반 침입 탐지 방법들의 정량적 비교 분석 결과 제시</p>
+        
+    </div>
+
+    <div id="slide2" class="step" data-x="-1000" data-y="-1500">
+        <h1>서론: 연구 배경 및 필요성</h1>
+        <ul>
+            <li>차량-사물 통신(V2X) 발달로 차량 내부 네트워크(IVN) 보안 위협 증가</li>
+            <li>다양한 딥러닝 기반 침입 탐지 방법(IDS) 등장</li>
+            <li><strong>기존 연구의 한계점:</strong>
+                <ul>
+                    <li>최신 딥러닝 IDS 간 <span class="highlight">정량적/공정한 수평적 성능 비교</span> 부재</li>
+                    <li><span class="highlight">미지 공격(Unknown Attack)</span> 탐지 능력 비교 분석 부재</li>
+                    <li>모델의 <span class="highlight">시간 및 하드웨어 리소스 소비량</span> 비교 분석 부재</li>
+                </ul>
+            </li>
+            <li><strong>본 연구의 목표:</strong> 10가지 대표 최신 딥러닝 IDS를 대상으로 위 한계점들을 비교 분석하고, 향후 연구 방향 제시</li>
+        </ul>
+    </div>
+
+    <div id="slide3" class="step" data-x="0" data-y="-1500">
+        <h1>연구 대상: 10가지 대표 딥러닝 IDS</h1>
+        <p>다양한 모델 구조 및 학습/추론 유형을 포괄하는 10가지 최신 모델 선정 (논문 표 1 참조):</p>
+        <ul>
+            <li>Reduced Inception-ResNet, CANTransfer, CAN-ADF, TSP, O-DAE, LDAN, E-GAN, HyDL-IDS, CANet, Rec-CNN</li>
+        </ul>
+        <p class="note">각 알고리즘은 기존 연구에서 우수한 성능을 보이거나 독창적인 접근 방식을 제시했습니다.</p>
+    </div>
+
+    <div id="slide4" class="step" data-x="1000" data-y="-1500">
+        <h1>실험 방법론 (1): 정량적 비교 설정</h1>
+        <ul>
+            <li><strong>물리적 구성:</strong> 동일 하드웨어 및 소프트웨어 환경</li>
+            <li><strong>실험 데이터셋:</strong> "car-hacking dataset" (dataset-2) 사용 (논문 표 2 참조)</li>
+            <li><strong>공격 시나리오</strong> (논문 표 3 참조):
+                <ul>
+                    <li><span class="highlight">DoS 공격:</span> <strong>알려진 공격(Known Attack)</strong></li>
+                    <li><span class="highlight">Fuzzy 공격 및 Impersonation 공격:</span> <strong>미지 공격(Unknown Attack)</strong></li>
+                </ul>
+            </li>
+            <li><span class="highlight">(다음 슬라이드에서 Figure 1: 공격 시나리오 이미지 확인)</span></li>
+        </ul>
+    </div>
+
+    <div id="slide4a" class="step figure-slide" data-x="2000" data-y="-1500">
+        <img src="1.png" alt="Figure 1: Attack Scenarios">
+        <p class="caption">Figure 1: Three types of network-based attacks (논문 Figure 1)</p>
+    </div>
+
+    <div id="slide5" class="step" data-x="3000" data-y="-1500">
+        <h1>실험 방법론 (2): 모델 학습 및 예측</h1>
+        <ul>
+            <li><strong>학습 파라미터:</strong> 3-겹 교차 검증으로 최적 하이퍼파라미터 탐색. <span class="highlight">(다음 슬라이드에서 Figure 2: 손실 곡선 이미지 확인)</span></li>
+            <li><strong>데이터셋 분할</strong> (논문 표 4 참조): 정상 및 DoS 70% 학습, 나머지 중 5% 테스트. CANTransfer 1-shot 학습 평가</li>
+            <li><strong>데이터 전처리:</strong> 각 모델 원본 연구 방법 적용 (논문 표 5 참조)</li>
+        </ul>
+    </div>
+
+    <div id="slide5a" class="step figure-slide" data-x="4000" data-y="-1500">
+        <img src="2.png" alt="Figure 2: Average loss values">
+        <p class="caption">Figure 2: The average loss value of training and validation process (논문 Figure 2)</p>
+    </div>
+
+    <div id="slide6" class="step" data-x="3000" data-y="-500">
+        <h1>평가 지표</h1>
+        <ul>
+            <li><strong>실행 성능 평가 지표:</strong> 시간 소비, 메모리 사용량</li>
+            <li><strong>탐지 성능 평가 지표:</strong> 정확도, 정밀도, 재현율, FPR, F1-점수, ROC AUC</li>
+            <li><span class="highlight">(다음 슬라이드에서 Figure 3, 4: 실행 성능 결과 이미지 확인)</span></li>
+        </ul>
+    </div>
+
+    <div id="slide6a" class="step figure-slide" data-x="4000" data-y="-500">
+        <img src="3.png" alt="Figure 3: Time consumption">
+        <p class="caption">Figure 3: The time consumption of ten representative models (논문 Figure 3)</p>
+    </div>
+
+    <div id="slide6b" class="step figure-slide" data-x="5000" data-y="-500">
+        <img src="4.png" alt="Figure 4: Memory consumption">
+        <p class="caption">Figure 4: The memory consumption of ten representative models (논문 Figure 4)</p>
+    </div>
+
+
+    <div id="slide7" class="step" data-x="2000" data-y="-500">
+        <h1>결과 (1): 실행 성능 평가 요약</h1>
+        <p>앞서 보신 Figure 3, 4를 바탕으로 요약하면 다음과 같습니다:</p>
+        <ul>
+            <li><strong>시간 소비:</strong> Rec-CNN이 학습 및 추론 모두 가장 적은 시간 소요. Reduced Inception-ResNet은 가장 긴 시간 소요.</li>
+            <li><strong>메모리 소비 (추론 시):</strong> LDAN이 가장 낮은 메모리 사용량.</li>
+            <li>종합적으로 HyDL-IDS, CANet, Rec-CNN, LDAN이 우수한 실행 성능을 보였습니다.</li>
+        </ul>
+    </div>
+
+    <div id="slide8" class="step" data-x="1000" data-y="-500">
+        <h1>결과 (2): 탐지 성능 (미지 공격)</h1>
+        <p>미지 공격(Fuzzy, Gear Spoofing, RPM Spoofing) 탐지 능력 평가 (논문 표 6 참조):</p>
+        <ul>
+            <li><strong>대부분 모델:</strong> 정밀도와 재현율이 <strong>거의 0</strong> (탐지 실패).</li>
+            <li><strong>제한적 탐지 능력:</strong> CANTransfer (1-shot), CAN-ADF, HyDL-IDS 등 일부 모델만 미미한 수준.</li>
+            <li><strong>Gear Spoofing 공격:</strong> 모든 모델 탐지 <strong>실패</strong>.</li>
+        </ul>
+        <p class="note">미지 공격 탐지는 여전히 큰 도전 과제입니다.</p>
+    </div>
+
+    <div id="slide9" class="step" data-x="0" data-y="-500">
+        <h1>결과 (3): 탐지 성능 (알려진 DoS 공격)</h1>
+        <p>알려진 DoS 공격 탐지 성능 비교 (논문 표 6 참조):</p>
+        <ul>
+            <li><strong>전반적 결과:</strong> 모든 모델 높은 탐지 성능 (F1 >0.94, FPR <0.02).</li>
+            <li><strong>1등급 모델:</strong> Reduced Inception-ResNet, CANet, CANTransfer.</li>
+            <li><span class="highlight">(다음 슬라이드들에서 Figure 5, 6, 7: DoS 공격 결과 상세 이미지 확인)</span></li>
+        </ul>
+    </div>
+
+    <div id="slide9a" class="step figure-slide" data-x="-1000" data-y="-500">
+        <img src="5.png" alt="Figure 5: Confusion matrices for DoS">
+        <p class="caption">Figure 5: The confusion matrices of ten models for DoS attack (논문 Figure 5)</p>
+    </div>
+
+    <div id="slide9b" class="step figure-slide" data-x="-2000" data-y="-500">
+        <img src="6.png" alt="Figure 6: Detection performance for DoS">
+        <p class="caption">Figure 6: The detection performance of all methods against known DoS attack (논문 Figure 6)</p>
+    </div>
+
+    <div id="slide9c" class="step figure-slide" data-x="-3000" data-y="-500">
+        <img src="7.png" alt="Figure 7: ROC curves for DoS">
+        <p class="caption">Figure 7: The ROC curves of ten models for DoS attack inference (논문 Figure 7)</p>
+    </div>
+
+
+    <div id="slide10" class="step" data-x="0" data-y="500"> <h1>논의 및 종합 평가</h1>
+        <p>앞서 보신 Figure 5, 6, 7 및 전체 결과를 종합하면:</p>
+        <ul>
+            <li><strong>최적 비교 베이스라인 제안:</strong>
+                <ul>
+                    <li><span class="highlight">CANet:</span> 높은 실행 성능 + 1등급 탐지 성능.</li>
+                    <li><span class="highlight">HyDL-IDS:</span> 높은 실행/탐지 성능 + 미미한 미지 공격 탐지 가능성.</li>
+                </ul>
+            </li>
+            <li><strong>시사점:</strong> 공간적 및 시간적 특징 고려가 일반화 및 미지 공격 탐지 향상에 도움 가능.</li>
+        </ul>
+    </div>
+
+    <div id="slide11" class="step" data-x="1000" data-y="500">
+        <h1>결론 및 향후 연구 방향</h1>
+        <ul>
+            <li><strong>주요 당면 과제:</strong> 미지 공격 탐지 능력 부족, 임베디드 시스템 리소스 최적화.</li>
+            <li><strong>향후 연구 방향 제안:</strong> 미지 공격 탐지 능력 향상, 경량화, 시간/공간 특징 고려, 전이 학습 활용.</li>
+            <li><strong>연구 요약:</strong> CANet과 HyDL-IDS를 잠재적 베이스라인으로 제안, 향후 개발 방향 제시.</li>
+        </ul>
+    </div>
+
+    <div id="slide12" class="step" data-x="2000" data-y="500">
+        <h1>Q&A</h1>
+        <p>이상으로 발표를 마치겠습니다. 경청해주셔서 감사합니다.</p>
+        <p>질문 있으시면 편하게 해 주십시오.</p>
+        <p class="note">참고문헌 및 약어 목록은 논문의 Table VII 등을 참고해주시기 바랍니다.</p>
+    </div>
+
+    <div id="overview" class="step" data-x="1000" data-y="-500" data-scale="8"> </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/impress.js/0.5.3/impress.min.js"></script>
+<script>impress().init();</script>
+
+</body>
+</html>
