@@ -88,19 +88,41 @@
             margin-top: auto;
             padding-top: 10px;
         }
+
+        /* 표지 슬라이드 전용 스타일 */
+        #slide1 {
+            justify-content: center; /* 내용 수직 중앙 정렬 */
+            text-align: center; /* 텍스트 중앙 정렬 */
+        }
+        #slide1 h1.title-main {
+            font-size: 3em; /* 논문 제목 크기 */
+            color: #2c3e50;
+            border-bottom: none; /* 제목 밑줄 제거 */
+            margin-bottom: 30px;
+        }
+        #slide1 p.title-sub {
+            font-size: 1.5em; /* 저자, 목적 크기 */
+            color: #555;
+            margin-bottom: 20px;
+        }
+        #slide1 p.authors {
+            font-style: italic;
+        }
+
+
         /* Figure 전용 슬라이드 스타일 */
         .figure-slide {
-            width: 950px; /* 이미지 크기에 맞춰 너비 조정 가능 */
-            min-height: 700px; /* 이미지 크기에 맞춰 높이 조정 가능 */
-            padding: 10px; /* 이미지 위주이므로 패딩 최소화 */
-            justify-content: center; /* 내부 요소 중앙 정렬 */
-            align-items: center; /* 내부 요소 중앙 정렬 */
-            background-color: #fff; /* Figure 슬라이드 배경은 흰색으로 */
+            width: 950px;
+            min-height: 700px;
+            padding: 10px;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
         }
         .figure-slide img {
             max-width: 100%;
-            max-height: 620px; /* 슬라이드 높이와 캡션 공간 고려한 이미지 최대 높이 */
-            object-fit: contain; /* 이미지 비율 유지 */
+            max-height: 620px;
+            object-fit: contain;
             border: 1px solid #ddd;
             border-radius: 5px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -133,11 +155,9 @@
 <div id="impress" data-transition-duration="1000">
 
     <div id="slide1" class="step" data-x="-2000" data-y="-1500">
-        <h1>표지: 딥러닝 기반 차량 IDS 분석</h1>
-        <p><strong>논문 제목:</strong> Analysis of Recent Deep-Learning-Based Intrusion Detection Methods for In-Vehicle Network</p>
-        <p><strong>저자:</strong> Kai Wang, Aiheng Zhang, Haoran Sun, Bailing Wang</p>
-        <p><strong>발표 목적:</strong> 차량 내부 네트워크 보안을 위한 최신 딥러닝 기반 침입 탐지 방법들의 정량적 비교 분석 결과 제시</p>
-        
+        <h1 class="title-main">Analysis of Recent Deep-Learning-Based Intrusion Detection Methods for In-Vehicle Network</h1>
+        <p class="title-sub authors">Kai Wang, Aiheng Zhang, Haoran Sun, Bailing Wang</p>
+        <p class="title-sub"><strong>발표 목적:</strong> 차량 내부 네트워크 보안을 위한 최신 딥러닝 기반 침입 탐지 방법들의 정량적 비교 분석 결과 제시</p>
     </div>
 
     <div id="slide2" class="step" data-x="-1000" data-y="-1500">
@@ -266,7 +286,8 @@
     </div>
 
 
-    <div id="slide10" class="step" data-x="0" data-y="500"> <h1>논의 및 종합 평가</h1>
+    <div id="slide10" class="step" data-x="0" data-y="500">
+        <h1>논의 및 종합 평가</h1>
         <p>앞서 보신 Figure 5, 6, 7 및 전체 결과를 종합하면:</p>
         <ul>
             <li><strong>최적 비교 베이스라인 제안:</strong>
@@ -288,14 +309,8 @@
         </ul>
     </div>
 
-    <div id="slide12" class="step" data-x="2000" data-y="500">
-        <h1>Q&A</h1>
-        <p>이상으로 발표를 마치겠습니다. 경청해주셔서 감사합니다.</p>
-        <p>질문 있으시면 편하게 해 주십시오.</p>
-        <p class="note">참고문헌 및 약어 목록은 논문의 Table VII 등을 참고해주시기 바랍니다.</p>
+    <div id="overview" class="step" data-x="1000" data-y="-500" data-scale="8">
     </div>
-
-    <div id="overview" class="step" data-x="1000" data-y="-500" data-scale="8"> </div>
 
 </div>
 
