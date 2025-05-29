@@ -6,14 +6,14 @@
     <title>차량 내부 네트워크를 위한 최신 딥러닝 기반 침입 탐지 방법 분석</title>
     <style>
         body {
-            font-family: 'Nanum Gothic', sans-serif;
-            line-height: 1.6;
-            color: #333;
+            font-family: 'Nanum Gothic', 'Malgun Gothic', sans-serif; /* Added Malgun Gothic as a common fallback */
+            line-height: 1.7; /* Slightly increased for better readability */
+            color: #454545; /* Softer black for body text */
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #f0f2f5;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); /* Subtle gradient background */
             margin: 0;
         }
         .impress-not-supported .step {
@@ -25,161 +25,184 @@
             position: relative;
         }
         .step {
-            width: 900px; /* 기본 슬라이드 너비 */
-            min-height: 600px; /* 내용 슬라이드 최소 높이 */
-            padding: 30px;
+            width: 950px; /* Increased width slightly */
+            min-height: 650px; /* Increased min-height for more space */
+            padding: 40px; /* Increased padding */
             box-sizing: border-box;
-            border: 1px solid #eee;
-            border-radius: 10px;
-            background-color: rgba(255, 255, 255, 0.98);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            border: none; /* Removed border, relying on shadow */
+            border-radius: 15px; /* Increased border-radius for a softer look */
+            background-color: rgba(255, 255, 255, 0.99); /* Almost opaque white */
+            box-shadow: 0 12px 28px rgba(0,0,0,0.12), 0 8px 10px rgba(0,0,0,0.1); /* More refined shadow */
             display: flex;
             flex-direction: column;
         }
         .step.active {
             background-color: rgb(255, 255, 255);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15), 0 10px 15px rgba(0,0,0,0.12); /* Slightly more pronounced shadow for active slide */
             z-index: 10;
         }
 
         .step h1 {
-            font-size: 2.2em;
-            color: #2c3e50;
+            font-size: 2.4em; /* Adjusted size */
+            color: #1a5dab; /* A deeper, more professional blue */
             margin-top: 0;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 8px;
+            margin-bottom: 20px; /* Increased margin */
+            border-bottom: 3px solid #6fa8dc; /* Softer, thicker accent border */
+            padding-bottom: 12px; /* Adjusted padding */
+            font-weight: 600; /* Slightly bolder */
         }
         .step h2 {
-            font-size: 1.6em;
-            color: #3498db;
-            margin-top: 20px;
-            margin-bottom: 10px;
+            font-size: 1.7em; /* Adjusted size */
+            color: #2a7ae2; /* A vibrant, clear blue */
+            margin-top: 25px; /* Increased margin */
+            margin-bottom: 12px; /* Adjusted margin */
+            font-weight: 500;
         }
         .step p, .step ul {
-            font-size: 1.0em;
-            margin-bottom: 10px;
+            font-size: 1.05em; /* Slightly larger for readability */
+            margin-bottom: 15px; /* Increased spacing */
             text-align: left;
         }
         .step ul {
-            list-style-type: disc;
-            padding-left: 25px;
+            list-style-type: "» "; /* Custom bullet points, can also use disc or square */
+            padding-left: 20px; /* Adjusted padding */
         }
         .step li {
-            margin-bottom: 6px;
+            margin-bottom: 8px; /* Increased spacing */
         }
         .step strong {
-            color: #e74c3c;
+            color: #0d47a1; /* Stronger blue for emphasis, instead of red */
+            font-weight: 600;
         }
         .step .caption {
-            font-size: 0.85em;
-            color: #7f8c8d;
+            font-size: 0.9em; /* Adjusted size */
+            color: #6c757d; /* Softer gray for captions */
             text-align: center;
-            margin-top: 5px;
+            margin-top: 10px; /* Increased margin */
         }
         .highlight {
-            color: #3498db;
+            color: #2a7ae2; /* Consistent highlight color */
             font-weight: bold;
         }
         .note {
             font-style: italic;
-            color: #555;
-            font-size: 0.9em;
+            color: #5a6268; /* Slightly darker for notes */
+            font-size: 0.95em; /* Adjusted size */
             margin-top: auto;
-            padding-top: 10px;
+            padding-top: 15px;
+            border-top: 1px dashed #ced4da; /* Subtle separator */
         }
 
         /* 표지 슬라이드 전용 스타일 */
         #slide1 {
-            justify-content: center; /* 내용 수직 중앙 정렬 */
-            text-align: center; /* 텍스트 중앙 정렬 */
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); /* Distinct background for title */
         }
         #slide1 h1.title-main {
-            font-size: 2.8em; /* 논문 제목 크기 조정 */
-            color: #2c3e50;
-            border-bottom: none; /* 제목 밑줄 제거 */
-            margin-bottom: 25px; /* 여백 조정 */
-            line-height: 1.3;
+            font-size: 3.0em; /* Larger title */
+            color: #ffffff; /* White title on gradient background */
+            border-bottom: none;
+            margin-bottom: 30px;
+            line-height: 1.4;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2); /* Text shadow for readability */
         }
-        #slide1 p.title-sub { /* 저자 표시용 */
-            font-size: 1.4em; /* 저자 크기 조정 */
-            color: #555;
-            margin-bottom: 18px; /* 여백 조정 */
+        #slide1 p.title-sub { /* 저자 표시용 - Now used for the English author names */
+            font-size: 1.5em;
+            color: #f8f9fa; /* Lighter color for subtitle on gradient */
+            margin-bottom: 25px;
+            font-weight: 400;
         }
-        #slide1 p.authors {
-            font-style: italic;
-            font-size: 1.3em; /* 저자 크기 조정 */
+         #slide1 p.authors { /* Keeping this for potential other uses, but title-sub is used for authors */
+            font-style: normal; /* Removed italic */
+            font-weight: 500; /* Normal weight */
+            font-size: 1.4em;
+            color: #e9ecef;
         }
 
 
         /* Figure 전용 슬라이드 스타일 */
         .figure-slide {
-            width: 950px; /* 이미지 크기에 맞춰 너비 조정 가능 */
-            min-height: 700px; /* 이미지 크기에 맞춰 높이 조정 가능 */
-            padding: 10px; /* 이미지 위주이므로 패딩 최소화 */
-            justify-content: center; /* 내부 요소 중앙 정렬 */
-            align-items: center; /* 내부 요소 중앙 정렬 */
-            background-color: #fff; /* Figure 슬라이드 배경은 흰색으로 */
+            width: 980px; /* Slightly wider for figures */
+            min-height: 720px; /* Taller for figures */
+            padding: 20px;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8f9fa; /* Slightly off-white background for figure slides */
         }
         .figure-slide img {
             max-width: 100%;
-            max-height: 620px; /* 슬라이드 높이와 캡션 공간 고려한 이미지 최대 높이 */
-            object-fit: contain; /* 이미지 비율 유지 */
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-height: 650px; /* Adjusted max height */
+            object-fit: contain;
+            border: none; /* Removed border */
+            border-radius: 8px; /* Softer radius */
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* Consistent shadow style */
         }
         .figure-slide .caption {
-            margin-top: 10px;
-            font-weight: bold;
-            font-size: 0.9em;
-            color: #555;
+            margin-top: 15px; /* Increased margin */
+            font-weight: 600; /* Bolder caption */
+            font-size: 0.95em; /* Adjusted size */
+            color: #333;
         }
 
         /* 조사한 논문 요약 슬라이드 스타일 */
         .paper-summary-slide h1 {
-            font-size: 1.8em; /* 요약 슬라이드 제목 크기 조정 */
-            margin-bottom: 20px;
+            font-size: 2.0em; /* Slightly smaller for summary slides if needed, or keep same as .step h1 */
+            margin-bottom: 25px;
         }
         .paper-summary-slide h2 {
-            font-size: 1.3em;
-            margin-top: 15px;
-            margin-bottom: 8px;
-            color: #3498db; /* 부제목 색상 강조 */
+            font-size: 1.5em; /* Adjusted size */
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #2a7ae2; /* Consistent sub-heading color */
         }
         .paper-summary-slide ul {
-            font-size: 0.95em;
+            font-size: 1.0em; /* Adjusted size */
+            padding-left: 25px; /* More padding for custom bullets if used */
         }
-         .paper-summary-slide li {
-            margin-bottom: 5px;
+        .paper-summary-slide li {
+            margin-bottom: 7px; /* Adjusted spacing */
         }
 
         /* Table Style */
         .step table {
-            width: 95%; /* 표 너비 조정 */
-            margin: 15px auto;
-            border-collapse: collapse;
-            font-size: 0.75em; /* 표 내부 폰트 더 작게 조정 */
-            table-layout: fixed; /* 셀 너비 고정 시도 */
+            width: 100%; /* Full width within padding */
+            margin: 20px auto; /* Centered with more margin */
+            border-collapse: separate; /* Allows for border-spacing and rounded corners on table */
+            border-spacing: 0;
+            font-size: 0.8em; /* Slightly increased for readability */
+            table-layout: fixed;
+            border-radius: 8px; /* Rounded corners for the table */
+            overflow: hidden; /* To make border-radius work with cells */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05); /* Subtle shadow for table */
         }
         .step th, .step td {
-            border: 1px solid #bbb; /* 테두리 약간 진하게 */
-            padding: 4px; /* 패딩 더 줄임 */
+            border: 1px solid #e0e0e0; /* Lighter borders */
+            padding: 10px 12px; /* More padding in cells */
             text-align: left;
             vertical-align: top;
-            word-wrap: break-word; /* 긴 내용 줄 바꿈 */
+            word-wrap: break-word;
         }
         .step th {
-            background-color: #e9ecef; /* 헤더 배경색 변경 */
-            font-weight: bold;
+            background-color: #e9f2fb; /* Light, airy blue for headers */
+            font-weight: 600; /* Bolder headers */
+            color: #1a5dab; /* Consistent header text color */
             text-align: center;
+            border-top: none; /* Remove top border for cleaner look with rounded table */
+            border-bottom-width: 2px; /* Stronger bottom border for header */
         }
-        .step table caption { /* 표 캡션 스타일 */
-            font-size: 0.9em;
-            font-weight: bold;
-            margin-bottom: 8px;
+        .step td {
+            background-color: #fff; /* Ensure td background is white for striping */
+        }
+        .step tr:nth-child(even) td {
+            background-color: #f8f9fa; /* Zebra striping for rows */
+        }
+        .step table caption {
+            font-size: 1.0em; /* Larger caption */
+            font-weight: 600; /* Bolder caption */
+            margin-bottom: 12px; /* Increased margin */
             color: #333;
-            caption-side: top; /* 캡션을 표 위로 */
+            caption-side: top;
             text-align: center;
         }
 
@@ -190,11 +213,16 @@
             box-shadow: none !important;
         }
         .impress-on-overview .step {
-            opacity: 0.5;
+            opacity: 0.6; /* Slightly more opaque for better visibility in overview */
             cursor: pointer;
+            transition: opacity 0.3s ease; /* Smooth transition */
+        }
+        .impress-on-overview .step:hover {
+            opacity: 0.85; /* Highlight on hover in overview */
         }
         .impress-on-overview .step.active {
-             opacity: 1;
+            opacity: 1;
+            border: 2px solid #2a7ae2 !important; /* Highlight active slide in overview */
         }
 
     </style>
@@ -205,8 +233,8 @@
 
     <div id="slide1" class="step" data-x="-1000" data-y="-3500">
         <h1 class="title-main">차량 내부 네트워크를 위한 최신 딥러닝 기반<br>침입 탐지 방법 분석</h1>
-        <p class="title-sub authors">Kai Wang, Aiheng Zhang, Haoran Sun, Bailing Wang</p>
-    </div>
+        <p class="title-sub">Kai Wang, Aiheng Zhang, Haoran Sun, Bailing Wang</p>
+        </div>
 
     <div id="slide2" class="step paper-summary-slide" data-x="-2000" data-y="-2500">
         <h1>조사한 논문 1: 확장 가능한 K-Means+RF와 딥러닝 기반 하이브리드 IDS (Liu et al., 2021)</h1>
@@ -307,7 +335,7 @@
         </ul>
     </div>
 
-     <div id="slide2e" class="step paper-summary-slide" data-x="-2000" data-y="-1500">
+    <div id="slide2e" class="step paper-summary-slide" data-x="-2000" data-y="-1500">
         <h1>조사한 논문 3: 컴퓨팅 오프로딩 및 주요 결과 (Loukas et al.)</h1>
         <h2>컴퓨팅 오프로딩의 실용성</h2>
         <ul>
@@ -325,7 +353,7 @@
         </ul>
     </div>
 
-     <div id="slide2f" class="step paper-summary-slide" data-x="-1000" data-y="-1500">
+    <div id="slide2f" class="step paper-summary-slide" data-x="-1000" data-y="-1500">
         <h1>조사한 논문 4: 심층 컨볼루션 신경망을 이용한 차량 내부 네트워크 침입 탐지 (Song, Woo, Kim, 2020)</h1>
         <h2>핵심 문제</h2>
         <p>차량 내부 네트워크의 사실상 표준인 CAN(Controller Area Network) 프로토콜은 메시지 암호화나 송신자 인증과 같은 충분한 보안 기능을 갖추고 있지 않아 사이버 공격에 취약하다. 수동으로 특징을 설계할 필요 없이 네트워크 트래픽 패턴을 학습하여 악의적인 트래픽을 탐지할 수 있는 IDS가 필요하다.</p>
@@ -357,7 +385,7 @@
         <ul>
             <li>차량 내부 네트워크 IDS에 DCNN(특히 Inception-ResNet 아키텍처)을 적용한 선도적인 연구이다.</li>
             <li>제안된 IDS는 기존 머신러닝 알고리즘과 비교하여 매우 낮은 오탐지율(False Negative Rate, FNR) 및 오류율(Error Rate, ER)을 보였다.
-                 <ul><li>예: DoS 공격 FNR 0.13%(평균), Fuzzy 공격 FNR 0.50%(평균). (최저값 기준으로는 더 낮음)</li></ul>
+                <ul><li>예: DoS 공격 FNR 0.13%(평균), Fuzzy 공격 FNR 0.50%(평균). (최저값 기준으로는 더 낮음)</li></ul>
             </li>
             <li>실제 차량을 사용하여 구축한 레이블이 지정된 차량 내부 네트워크 공격 데이터셋을 공개하여 관련 연구를 촉진하였다.</li>
         </ul>
@@ -511,7 +539,7 @@
                     <td>4,621,702</td>
                     <td>85.8%</td>
                 </tr>
-                 <tr>
+                <tr>
                     <td>Attack-free (Normal)</td>
                     <td>988,987</td>
                     <td>100%</td>
@@ -560,7 +588,7 @@
         <h2>학습 파라미터 최적화</h2>
         <p>모든 딥러닝 모델에 대해 3-겹 교차 검증 전략을 사용하여 최적의 하이퍼파라미터를 탐색하고 과적합을 방지하였다. 검증 세트의 평균 손실 곡선을 통해 각 모델의 최적 학습 에포크를 결정하였다. <span class="highlight">(다음 슬라이드에서 Figure 2: 모델별 평균 손실 곡선 이미지 확인)</span></p>
         <h2>데이터셋 분할</h2>
-         <table>
+        <table>
             <caption>표 IV: 학습 및 테스트 데이터셋 분할 (요약)</caption>
             <thead>
                 <tr>
@@ -672,7 +700,7 @@
     <div id="slide10" class="step" data-x="-1000" data-y="1500">
         <h1>결과 (3): 탐지 성능 (알려진 DoS 공격) (본 논문)</h1>
         <p>학습 데이터에 포함된 DoS 공격에 대한 모델들의 탐지 성능을 비교 평가하였다. (논문 표 VI 및 Figure 5, 6, 7 참조)</p>
-         <table>
+        <table>
             <caption>표 VI: 알려진 DoS 공격에 대한 탐지 성능 (상위 모델 요약)</caption>
             <thead>
                 <tr><th>모델</th><th>정확도</th><th>정밀도</th><th>재현율</th><th>FPR</th><th>F1-점수</th></tr>
