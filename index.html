@@ -207,11 +207,12 @@
         }
 
         /* Reduce size specifically for tables in slide5 */
-        #slide5 table {
+        #slide5 table, #slide5_b table { /* Applied to new slide part as well */
             font-size: 0.7em; /* Smaller font size for tables in slide5 */
             margin: 15px auto;
         }
-        #slide5 table th, #slide5 table td {
+        #slide5 table th, #slide5 table td,
+        #slide5_b table th, #slide5_b table td { /* Applied to new slide part as well */
             padding: 6px 8px; /* Reduced padding for tables in slide5 */
         }
 
@@ -238,7 +239,7 @@
 </head>
 <body class="impress-not-supported">
 
-<div id="impress" data-transition-duration="1000">
+<div id="impress" data-transition-duration="1000" data-width="950" data-height="650">
 
     <div id="slide1" class="step" data-x="-1800" data-y="-4000">
         <h1 class="title-main">차량 내부 네트워크를 위한 최신 딥러닝 기반<br>침입 탐지 방법 분석</h1>
@@ -259,7 +260,7 @@
     </div>
 
     <div id="slide2a" class="step paper-summary-slide" data-x="-1800" data-y="-2500">
-        <h1>조사한 논문 1: 방법론 특징 및 주요 결과 (Liu et al.)</h1>
+        <h1>조사한 논문 1: 방법론 특징 (Liu et al.)</h1>
         <h2>방법론 특징</h2>
         <ul>
             <li>분산 K-Means 알고리즘은 데이터를 다수의 하위 집합으로 나누어 병렬 처리하며, 이후 Random Forest가 각 클러스터 결과를 분류한다.</li>
@@ -267,6 +268,9 @@
             <li>딥러닝 모델은 2단계에서 이미 공격으로 분류된 샘플에 대해서만 학습을 진행하므로, 전체 학습 데이터 양을 줄여 딥러닝 단계의 효율성을 증대시킨다.</li>
             <li>ADASYN 오버샘플링 기법을 활용하여 소수 클래스에 해당하는 공격 유형의 데이터를 합성함으로써, 분류 모델이 특정 공격 유형에 편향되는 것을 방지한다.</li>
         </ul>
+    </div>
+    <div id="slide2a_b" class="step paper-summary-slide" data-x="0" data-y="-2500">
+        <h1>조사한 논문 1: 주요 결과 및 기여 (Liu et al.)</h1>
         <h2>주요 결과 및 기여</h2>
         <ul>
             <li>제안된 모델은 이진 분류(정상/공격)에서 NSL-KDD 데이터셋 기준 92.90%, CIC-IDS2017 데이터셋 기준 99.87%의 높은 정확도를 달성하였다.</li>
@@ -277,8 +281,7 @@
         </ul>
     </div>
 
-    <div id="slide2b" class="step paper-summary-slide" data-x="0" data-y="-2500">
-        <h1>조사한 논문 2: CNN 딥러닝 접근법을 이용한 효과적인 차량용 CAN 버스 IDS (Hossain et al., 2020)</h1>
+    <div id="slide2b" class="step paper-summary-slide" data-x="1800" data-y="-2500"> <h1>조사한 논문 2: CNN 딥러닝 접근법을 이용한 효과적인 차량용 CAN 버스 IDS (Hossain et al., 2020)</h1>
         <h2>핵심 문제</h2>
         <p>Controller Area Network (CAN) 버스는 암호화 및 송신자 인증 메커니즘 부재로 다양한 네트워크 공격에 취약하다. 기존 IDS는 종종 높은 오탐지율(false positive/negative)을 나타내며, 이는 주로 시뮬레이션 데이터 의존성에 기인한다.</p>
         <h2>제안된 해결 방안: CNN 기반 IDS</h2>
@@ -297,8 +300,7 @@
         </ul>
     </div>
 
-    <div id="slide2c" class="step paper-summary-slide" data-x="1800" data-y="-2500">
-        <h1>조사한 논문 2: CNN 모델 세부사항 및 주요 결과 (Hossain et al.)</h1>
+    <div id="slide2c" class="step paper-summary-slide" data-x="3600" data-y="-2500"> <h1>조사한 논문 2: CNN 모델 세부사항 및 주요 결과 (Hossain et al.)</h1>
         <h2>CNN 모델 세부사항</h2>
         <ul>
             <li>CAN 메시지와 같은 시계열 데이터 처리에 적합한 1차원 CNN (1D CNN) 아키텍처를 사용하였다.</li>
@@ -321,8 +323,7 @@
         </ul>
     </div>
 
-    <div id="slide2d" class="step paper-summary-slide" data-x="3600" data-y="-2500">
-        <h1>조사한 논문 3: 딥러닝을 활용한 차량용 클라우드 기반 사이버-물리 IDS (Loukas et al., 2018)</h1>
+    <div id="slide2d" class="step paper-summary-slide" data-x="5400" data-y="-2500"> <h1>조사한 논문 3: 문제점 및 제안 (Loukas et al.)</h1>
         <h2>핵심 문제</h2>
         <p>차량은 일반적으로 처리 자원이 제한적이어서, 온보드(on-board) IDS는 규칙 기반 또는 경량 머신러닝 기법에 국한되는 경우가 많다. 이는 복잡하고 새로운 유형의 사이버-물리적 공격 탐지에 한계를 가진다.</p>
         <h2>제안된 해결 방안: 클라우드 컴퓨팅 오프로딩 기반 딥러닝 IDS</h2>
@@ -331,6 +332,9 @@
             <li>이를 통해 증가된 처리 자원을 활용하여, 온보드 환경에서는 실행하기 어려운 고급 딥러닝 기법을 IDS에 도입한다.</li>
             <li>본 연구는 소형 4륜 로봇 육상 차량을 사례 연구로 사용하여, 딥러닝 기반의 지속적인 침입 탐지 작업을 클라우드로 오프로딩하는 것의 실용성과 이점을 입증한다.</li>
         </ul>
+    </div>
+    <div id="slide2d_b" class="step paper-summary-slide" data-x="7200" data-y="-2500">
+        <h1>조사한 논문 3: 방법론 (Loukas et al.)</h1>
         <h2>방법론</h2>
         <ul>
             <li>**입력 데이터:** 차량의 사이버 프로세스(네트워크 트래픽, CPU/디스크 사용량)와 물리적 프로세스(엔코더 속도, 가속도계 진동, 전력/전류 소비량) 모두와 관련된 데이터를 실시간으로 수집하여 시계열 데이터로 사용한다.</li>
@@ -388,8 +392,8 @@
         <ul>
             <li>대규모 이미지 분류를 위해 설계된 원본 Inception-ResNet 모델을 입력 및 출력 차원, 데이터 구조의 복잡성 차이를 고려하여 구성요소를 줄이고 파라미터를 조정하여 재설계하였다.</li>
             <li>
-  본 논문의 모델은 29 &times; 29 &times; 1 크기의 입력 데이터를 두 클래스(정상/공격)로 분류하는 반면,
-  원본 모델은 299 &times; 299 &times; 3 크기의 이미지를 1,000개 클래스로 분류한다.
+본 논문의 모델은 29 &times; 29 &times; 1 크기의 입력 데이터를 두 클래스(정상/공격)로 분류하는 반면,
+원본 모델은 299 &times; 299 &times; 3 크기의 이미지를 1,000개 클래스로 분류한다.
 </li>
             <li>모델 복잡성을 줄임으로써 과도한 컴퓨팅 자원 요구 및 과적합(overfitting) 문제를 완화하였다. (메모리 요구량 및 파라미터 수가 원본 대비 각각 약 2%, 18% 수준)</li>
         </ul>
@@ -443,17 +447,16 @@
     </div>
 
     <div id="slide3" class="step" data-x="-3600" data-y="500">
-        <h1>서론  Analysis of Recent Deep-Learning-Based Intrusion Detection Methods for In-Vehicle Network</h1>
+        <h1>서론 Analysis of Recent Deep-Learning-Based Intrusion Detection Methods for In-Vehicle Network</h1>
         <p>차량-사물 통신(V2X)의 발전과 대중화는 차량 내부 네트워크 보안에 더 많은 위험을 초래하였다.</p>
 <p>결과적으로 차량 내부 네트워크의 안전을 보장하기 위해, 특히 딥러닝 기반 방법을 중심으로 다양하고 효과적인 침입 탐지 방법들이 등장했지만,</p>
 <p>최첨단 딥러닝 기반 침입 탐지 방법들은 정량적이고 공정한 수평적 성능 비교 분석이 부족한 실정이다.</p>
 <p>또한, 알려지지 않은 공격에 대한 탐지 능력뿐만 아니라 지능형 침입 탐지 모델의 시간 및 하드웨어 리소스 소비에 대한 비교 분석도 부재하다.</p>
 <p>따라서 본 논문은 10가지 대표적인 고급 딥러닝 기반 침입 탐지 방법을 조사하고 각 방법의 특징과 장점을 설명하는것이 이 논문의 목적이다.</p>
-
     </div>
 
     <div id="slide4" class="step" data-x="-1800" data-y="500">
-        <h1>연구 대상: 10가지 대표 딥러닝 IDS (본 논문)</h1>
+        <h1>연구 대상: 대표 딥러닝 IDS 소개 (본 논문)</h1>
         <p>본 논문에서는 정량적 비교 분석을 위해 다음 10가지 최신 딥러닝 기반 침입 탐지 모델을 선정하였다. 이 모델들은 CNN, LSTM, GAN, 오토인코더 등 다양한 신경망 구조와 지도/비지도 학습, 이진/다중 분류 등 다양한 학습 및 추론 유형을 포괄한다.</p>
         <table>
             <caption>표 1: 본 논문의 주요 연구 대상 모델 (요약)</caption>
@@ -490,6 +493,21 @@
                     <td>Deep Denoising Autoencoder, EBO 최적화</td>
                     <td>진화 알고리즘 기반 오토인코더 최적화</td>
                 </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="slide4_b" class="step" data-x="0" data-y="500">
+        <h1>연구 대상: 대표 딥러닝 IDS (계속)</h1>
+        <table>
+            <caption>표 1: 본 논문의 주요 연구 대상 모델 (요약)</caption>
+            <thead>
+                <tr>
+                    <th>모델명</th>
+                    <th>핵심 기술/구조</th>
+                    <th>주요 특징</th>
+                </tr>
+            </thead>
+            <tbody>
                 <tr>
                     <td>LDAN</td>
                     <td>경량 동적 오토인코더</td>
@@ -520,8 +538,7 @@
         <p class="note">각 알고리즘의 세부 사항은 원본 논문들을 참조할 수 있다.</p>
     </div>
 
-
-    <div id="slide5" class="step" data-x="0" data-y="500"> <h1>실험 방법론 (1): 정량적 비교 설정 (본 논문)</h1>
+    <div id="slide5" class="step" data-x="1800" data-y="500"> <h1>실험 방법론 (1): 환경 및 데이터셋</h1>
         <h2>물리적 구성 및 소프트웨어 환경</h2>
         <p>모든 실험은 Intel Xeon E5-2640 v4 CPU, NVIDIA GPU, 128GB RAM을 갖춘 서버에서 수행되었으며, 운영체제는 CentOS 7, 딥러닝 프레임워크는 TensorFlow 2.0과 NumPy를 사용하였다.</p>
         <h2>실험 데이터셋: Car-Hacking Dataset</h2>
@@ -564,6 +581,8 @@
             </tbody>
         </table>
         <p>각 데이터는 타임스탬프, ID, DLC, 데이터 페이로드, 레이블 특징을 포함한다.</p>
+    </div>
+    <div id="slide5_b" class="step" data-x="3600" data-y="500"> <h1>실험 방법론 (1): 공격 시나리오</h1>
         <h2>공격 시나리오</h2>
         <table>
             <caption>표 III: 본 논문의 공격 분류</caption>
@@ -595,15 +614,15 @@
         <p><span class="highlight">(다음 슬라이드에서 Figure 1: 공격 시나리오 이미지 확인)</span></p>
     </div>
 
-    <div id="slide5a" class="step figure-slide" data-x="1800" data-y="500">
-        <img src="1.png" alt="Figure 1: Attack Scenarios">
+    <div id="slide5a" class="step figure-slide" data-x="5400" data-y="500"> <img src="1.png" alt="Figure 1: Attack Scenarios">
         <p class="caption">Figure 1: 네트워크 기반 공격 유형 (논문 Figure 1)</p>
     </div>
 
-    <div id="slide6" class="step" data-x="3600" data-y="500">
-        <h1>실험 방법론 (2): 모델 학습 및 예측 (본 논문)</h1>
+    <div id="slide6" class="step" data-x="7200" data-y="500"> <h1>실험 방법론 (2): 파라미터 최적화</h1>
         <h2>학습 파라미터 최적화</h2>
         <p>모든 딥러닝 모델에 대해 3-겹 교차 검증 전략을 사용하여 최적의 하이퍼파라미터를 탐색하고 과적합을 방지하였다. 검증 세트의 평균 손실 곡선을 통해 각 모델의 최적 학습 에포크를 결정하였다. <span class="highlight">(다음 슬라이드에서 Figure 2: 모델별 평균 손실 곡선 이미지 확인)</span></p>
+    </div>
+    <div id="slide6_b" class="step" data-x="9000" data-y="500"> <h1>실험 방법론 (2): 데이터 분할 및 전처리</h1>
         <h2>데이터셋 분할</h2>
         <table>
             <caption>표 IV: 학습 및 테스트 데이터셋 분할 (요약)</caption>
@@ -640,8 +659,7 @@
         <p>각 모델의 원본 연구에서 제안된 전처리 방법을 적용하였다. (논문 표 V: 모델별 전처리 방법 상세 내용 참조)</p>
     </div>
 
-    <div id="slide6a" class="step figure-slide" data-x="5400" data-y="500">
-        <img src="2.png" alt="Figure 2: Average loss values">
+    <div id="slide6a" class="step figure-slide" data-x="10800" data-y="500"> <img src="2.png" alt="Figure 2: Average loss values">
         <p class="caption">Figure 2: 3-겹 교차 검증 하 각 모델의 학습 및 검증 과정 평균 손실 값 (논문 Figure 2)</p>
     </div>
 
@@ -671,7 +689,6 @@
         <p class="caption">Figure 4: 10개 대표 모델의 추론 과정 메모리 소비량 (논문 Figure 4)</p>
     </div>
 
-
     <div id="slide8" class="step" data-x="1800" data-y="2000">
         <h1>결과 (1): 실행 성능 평가 요약 (본 논문)</h1>
         <p>Figure 3 및 Figure 4의 실험 결과를 바탕으로 모델들의 실행 성능을 요약하면 다음과 같다.</p>
@@ -690,7 +707,7 @@
     </div>
 
     <div id="slide9" class="step" data-x="-3600" data-y="3500">
-        <h1>결과 (2): 탐지 성능 (미지 공격) (본 논문)</h1>
+        <h1>결과 (2): 미지 공격 탐지 성능 (표)</h1>
         <p>DoS 공격만을 학습 데이터로 사용하고, Fuzzy 공격 및 Impersonation 공격은 미지 공격으로 간주하여 모델의 추론 능력을 평가하였다. (논문 표 VI 참조)</p>
         <table>
             <caption>표 VI: 미지 공격 유형에 대한 탐지 성능 (주요 모델 발췌)</caption>
@@ -705,6 +722,8 @@
                 <tr><td>HyDL-IDS</td><td>Fuzzy Attack</td><td>0.8715</td><td>0.0612</td><td>0.0002</td><td>0.0005</td></tr>
             </tbody>
         </table>
+    </div>
+    <div id="slide9_b" class="step" data-x="-1800" data-y="3500"> <h1>결과 (2): 미지 공격 탐지 분석</h1>
         <ul>
             <li>대부분의 모델에서 미지 공격에 대한 정밀도와 재현율은 0으로 나타나 탐지에 실패하였다. 높은 정확도는 불균형 데이터셋의 영향이다.</li>
             <li>CANTransfer (1-shot) 모델만이 Fuzzy 공격에 대해 유의미한 정밀도를 보였으나 재현율은 매우 낮았다.</li>
@@ -714,8 +733,7 @@
         <p class="note">현재 딥러닝 기반 IDS는 알려지지 않은 공격에 매우 취약하다.</p>
     </div>
 
-    <div id="slide10" class="step" data-x="-1800" data-y="3500">
-        <h1>결과 (3): 탐지 성능 (알려진 DoS 공격) (본 논문)</h1>
+    <div id="slide10" class="step" data-x="0" data-y="3500"> <h1>결과 (3): 탐지 성능 (알려진 DoS 공격) (본 논문)</h1>
         <p>학습 데이터에 포함된 DoS 공격에 대한 모델들의 탐지 성능을 비교 평가하였다. (논문 표 VI 및 Figure 5, 6, 7 참조)</p>
         <table>
             <caption>표 VI: 알려진 DoS 공격에 대한 탐지 성능 (상위 모델 요약)</caption>
@@ -736,18 +754,15 @@
         <p><span class="highlight">(다음 슬라이드들에서 Figure 5, 6, 7: DoS 공격 결과 상세 이미지 확인)</span></p>
     </div>
 
-    <div id="slide10a" class="step figure-slide" data-x="0" data-y="3500">
-        <img src="5.png" alt="Figure 5: Confusion matrices for DoS">
+    <div id="slide10a" class="step figure-slide" data-x="1800" data-y="3500"> <img src="5.png" alt="Figure 5: Confusion matrices for DoS">
         <p class="caption">Figure 5: DoS 공격 추론에 대한 10개 모델의 정규화된 혼동 행렬 (논문 Figure 5)</p>
     </div>
 
-    <div id="slide10b" class="step figure-slide" data-x="1800" data-y="3500">
-        <img src="6.png" alt="Figure 6: Detection performance for DoS">
+    <div id="slide10b" class="step figure-slide" data-x="3600" data-y="3500"> <img src="6.png" alt="Figure 6: Detection performance for DoS">
         <p class="caption">Figure 6: 알려진 DoS 공격에 대한 모든 방법의 탐지 성능 (논문 Figure 6)</p>
     </div>
 
-    <div id="slide10c" class="step figure-slide" data-x="3600" data-y="3500">
-        <img src="7.png" alt="Figure 7: ROC curves for DoS">
+    <div id="slide10c" class="step figure-slide" data-x="5400" data-y="3500"> <img src="7.png" alt="Figure 7: ROC curves for DoS">
         <p class="caption">Figure 7: DoS 공격 추론에 대한 10개 모델의 ROC 곡선 (논문 Figure 7)</p>
     </div>
 
@@ -764,13 +779,15 @@
     </div>
 
     <div id="slide12" class="step" data-x="1800" data-y="5000">
-        <h1>결론 및 향후 연구 방향 (본 논문)</h1>
+        <h1>결론 및 주요 과제 (본 논문)</h1>
         <p>본 논문은 10가지 대표 딥러닝 기반 차량 내부 네트워크 IDS를 정량적이고 공정하게 비교 분석하였다. 실험 결과, CANet과 HyDL-IDS 모델이 종합적 성능 면에서 우수한 베이스라인 후보로 확인되었다.</p>
         <h2>주요 당면 과제</h2>
         <ul>
             <li>미지 공격에 대한 탐지 능력의 전반적인 취약성.</li>
             <li>실제 차량의 제한된 임베디드 시스템 환경 적용을 위한 모델의 시간 및 리소스 소비 최적화.</li>
         </ul>
+    </div>
+    <div id="slide12_b" class="step" data-x="3600" data-y="5000"> <h1>향후 해결법 및 의의 (본 논문)</h1>
         <h2>이 논문에서 저희조가 생각한 향후 해결법 </h2>
         <ul>
             <li>미지 공격 탐지 능력 강화를 위한 새로운 접근법 연구.</li>
